@@ -1,8 +1,8 @@
 // Assignment Code
-// var generateBtn = document.querySelector("#generate");
+var generateBtn = document.querySelector("#generate");
 var pwLength, upCase, loCase, number, spChar, allChar;
 var index;
-var pWord = [];
+var pWord = "";
 
 
 // Arrays for each character option
@@ -41,61 +41,68 @@ function specChar() {
   return spChar;
 }
 
-// Compiling the arrays into one
-function charSet() {
-  allChar = [];
-  if(loCase) {
-    allChar = allChar + lcase;
-  }
-  if(upCase) {
-    allChar = allChar + ucase;
-  }
-  if(number) {
-    allChar = allChar + nums;
-  }
-  if(spChar) {
-    allChar = allChar + schar;
-  }
-  return allChar;
-}
+// getLength();
+// console.log(pwLength);
+// lowerCase();
+// console.log(loCase);
+// upperCase();
+// console.log(upCase);
+// numerals();
+// console.log(number);
+// specChar();
+// console.log(spChar);
 
-getLength();
-console.log(pwLength);
-lowerCase();
-console.log(loCase);
-upperCase();
-console.log(upCase);
-numerals();
-console.log(number);
-specChar();
-console.log(spChar);
-charSet();
-console.log(allChar);
 
 
 // Simple Password Generator
-for (var i = 0; i < pwLength; i++) {
-  index = Math.floor(Math.random()*(allChar.length));
-  console.log(index);
-  pWord = pWord + allChar[index];
+function generatePassword() {
+  getLength();
+  lowerCase();
+  upperCase();
+  numerals();
+  specChar();
+  for (var i = 0; i < pwLength;) {
+    if(i == pwLength) {break}
+    if(loCase) {
+      pWord += lcase[Math.floor(Math.random()*(lcase.length))];
+      // console.log(pWord);
+      i++;
+    }
+    if(i == pwLength) {break}
+    if(upCase) {
+      pWord += ucase[Math.floor(Math.random()*(ucase.length))];
+      // console.log(pWord);
+      i++;
+    }
+    if(i == pwLength) {break}
+    if(number) {
+      pWord += nums[Math.floor(Math.random()*(nums.length))];
+      // console.log(pWord);
+      i++;
+    }
+    if(i == pwLength) {break}
+    if(spChar) {
+      pWord += schar[Math.floor(Math.random()*(schar.length))];
+      // console.log(pWord);
+      i++;
+    }
+  }   
+  return pWord;
 }
 
-console.log(pWord)
-console.log(pWord.length);
-
-// // Write password to the #password input
-// function writePassword() {
-//   var password = generatePassword();
-//   var passwordText = document.querySelector("#password");
-
-  
+// generatePassword();
+// console.log(pWord);
+// console.log(pWord.length);
 
 
-//   passwordText.value = password;
-
-// }
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+  passwordText.value = password;
+}
 
 
 
 // // Add event listener to generate button
-// generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", writePassword);
